@@ -1,0 +1,30 @@
+添加
+
+查询
+
+更新update
+    db.collectionName.update(query,update,upset,multi);
+        collectionName：集合名字
+        query： 修改的条件，类似SQL的where语句。
+        update ：更新命令，类似SQL的set语句。
+        upset ：可选，默认是false，如果未发现符合更新条件的数据内容，是否执行插入操作，1或者true代表进行插入 0或者false不进行插入。
+        multi ：可选，mongodb 默认是false。是否进行多行更新。1或者true进行多行更新 0或者false不进行多行更新。
+    更新操作符
+        { $inc : { field : value } }：对一个数字字段field增加value
+            db.table1.update({a:12},{$inc:{a:6}})
+        { $set : { field : value } }：相当于sql的set field = value   不写$set会把所有的字段（除id）替换
+            db.table1.update({a:18},{$set:{a:6,b:8}})
+        { $unset : { field : 1} }：删除字段
+            db.table1.update({a:6},{$unset:{a:1,b:1}})
+        { $push : { field : value } }：把value追加到field里面去，field一定要是数组类型才行，如果field不存在，会新增一个数组类型加进去。
+            db.table1.update({},{$push:{a:[6,7],b:9}})
+        { $pushAll : { field : value_array } }：同$push,只是一次可以追加多个值到一个数组字段内
+            db.table1.update({},{$pushAll:{a:[14,15],b:[15,16]}})
+        { $addToSet : { field : value } }：增加一个值到数组内，而且只有当这个值不在数组内才增加。
+            db.table1.update({},{$addToSet:{a:{$each:[111,222]},b:[15,16]}})    循环a中的数组
+            db.table1.update({},{$addToSet:{a:[111,222],b:[15,16]}})    把a数组看做一个值
+删除
+
+
+
+
