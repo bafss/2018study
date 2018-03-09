@@ -1,3 +1,7 @@
+使用注意：
+    1.mongodb 中的"坑"系列 --- 单个文档16M大小限制
+        http://blog.csdn.net/ray_up/article/details/39473571
+
 添加
 
 查询
@@ -23,6 +27,9 @@
         { $addToSet : { field : value } }：增加一个值到数组内，而且只有当这个值不在数组内才增加。
             db.table1.update({},{$addToSet:{a:{$each:[111,222]},b:[15,16]}})    循环a中的数组
             db.table1.update({},{$addToSet:{a:[111,222],b:[15,16]}})    把a数组看做一个值
+
+    参考：
+        http://blog.csdn.net/qqiabc521/article/details/6325203
 删除
 
 
