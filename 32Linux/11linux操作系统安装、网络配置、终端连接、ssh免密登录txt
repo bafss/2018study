@@ -1,0 +1,59 @@
+操作系统安装
+    安装虚拟机VMware--》安装patch破解补丁--》启动
+    查看网络适配器：有VMnet1和VMnet8  2块虚拟网卡表示安装成功
+    安装虚拟机-->custom-->workstation11-->install operating system later
+    -->linux-->centos64-->vmname:shizhan,vm位置
+    --》nat--》create a new virtual disk--》split vitual disk into  multiple files
+    --》
+
+    cd/dvd--》use iso image file--》centos6.7 dvd1
+    --》install or update an existing system--》skip media test
+    --》安装过程：中文--》键盘布局：美国英语式
+    --》忽略所有数据
+    --》网络主机名：shizhan
+    --》时区：亚洲/上海
+    --》使用所有空间、查看并修改分区布局
+    --》sda第一块硬盘sda1主分区1   1-4主分区、扩展分区，其中一个扩展分区可以分为逻辑分区
+    --》格式化 将修改写入磁盘
+    --》desktop 现在自定义
+
+    点击某一台虚拟机--》右键snapshot快照、take snapshot--》revert to snapshot回到某一快照时刻
+
+    uname -a    查看操作系统信息
+    uname -r
+
+
+局域网网络配置
+    多台机器通过路由器（也叫网关192.168.33.1）联网
+        ip网段相同（由网关决定）：192.168.33.2[3-254]   255是广播地址，找255是向整个网段发信息
+        子网掩码netmask相同：255.255.255.0    和ip与运算得到网段
+        网关相同：为路由器ip，网络的总出口
+        dns：域名解析服务器 域名《--》ip    填写193.168.33.1网关地址可以自己去找或者8.8.8.8谷歌的
+        hwaddr：硬件地址
+
+        vi /etc/hosts
+            139.199.113.145 server01
+            140.143.17.216 server02
+            139.199.37.204 server03
+        vi /etc/sysconfig/network-scripts/ifcfg-eth0
+            ONBOOT='yes'
+            BOOTPROTO='dhcp'    [static]
+            IPADDR='192.168.33.200'       查看vmware网关：edit--》virtual network  --》vmnet8：网段subnet ip，网关地址查看nat setting
+            NETMASK='255.255.255.0'
+            GATEWAY=192.168.33.1
+
+
+        service network restart
+    nat虚拟网络
+        虚拟机的虚拟网卡和vmnet8虚拟网卡共同连接虚拟路由器，ip和虚拟路由器网段一致
+    桥接
+        虚拟机网卡和windows内部都连到vmnet0网桥连到物理网卡，ip和物理路由器网段一致
+    host-only：只能虚拟机和windows互动，虚拟机不能访问外网
+
+    主机名
+        hostname
+        hostname haha   重启reboot后无效
+        vi vi /etc/sysconfig/network
+
+
+进程管理

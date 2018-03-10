@@ -1,0 +1,9 @@
+离线
+
+实时
+
+内存
+
+hadoop架构体系：
+    HDFS+MapReduce+yarn
+    集群搭建

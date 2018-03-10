@@ -1,0 +1,63 @@
+文件操作
+    常用命令
+        pwd
+        ll /    ls -a -l
+        cd /
+        cat file
+        file filename 查看文件信息
+        mkdir -p aaa/bbb
+        touch file
+        echo "aaa" > file       >>
+        vi i/a I/A o/O gg/G 2yy 5dd  2p :%s/replace/new /find n/N :wq!命令模式、编辑模式、底行模式
+        rm -rf  强制递归删除文件夹
+        mv aaa ddd
+    文件权限
+        d-文件夹，-文件 l-链接  节点类型
+        读4写2执行1
+        文件的拥有者 文件的所属组 其他用户
+        chmod -R 777 .
+        文件夹的x权限是能不能进入
+        文件夹的w权限指能不能删除文件
+        chown  所有者:所属组 文件
+
+        vi /etc/sudoers
+        zhouchenxin     ALL=(ALL)       ALL
+        sudo useradd user
+
+
+
+    文件系统
+        bin：命令
+        sbin：系统管理程序：启动操作系统、网络配置、防火墙、用户管理
+        boot：启动 grub/grub.conf  timeout=5  启动时的54321
+        dev：硬件设备
+        etc：配置
+            第0块网卡：vi /etc/sysconfig/network-scripts/ifcfg-eth0
+            主机名：vi /etc/sysconfig/network
+        home：用户主目录
+        lib:库，类似Java的jar包
+        media：媒体文件 光盘
+        mnt：挂载目录
+        usr：资源安装软件  unix share resources
+        tmp：临时数据，随时可以删掉
+
+用户
+    whoami
+    who 当前谁在线
+    last    当前最近的登录历史记录
+
+    useradd zhouchenxin
+    passwd zhouchenxin
+
+
+
+
+
+
+
+字符串处理
+    grep
+    awk
+    sed
+    cut
+    sort
