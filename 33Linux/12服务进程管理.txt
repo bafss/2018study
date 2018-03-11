@@ -1,0 +1,11 @@
+netstat -nltp
+    dameon 服务进程
+
+
+service --status-all
+service network status/restart/start/stop   操作指定的服务
+
+chkconfig系统启动级别 /etc/inittab
+    自动启动
+    chkconfig iptables off
+

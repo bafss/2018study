@@ -1,0 +1,28 @@
+mount挂载外部存储设备到文件系统中
+umount /mnt/cdrom
+     mkdir /mnt/cdrom
+     mount -t -iso9660 -o ro /dev/cdrom /mnt/cdrom
+        -t  设备类型
+        -o  读的类型 ro只读
+
+
+
+wget
+filezilla
+lrzsz
+alt+p sftp工具
+    put
+    get
+    cd
+    lcd
+
+
+
+
+
+
+
+
+压缩gzip access.log   -d解压
+打包tar  zxcvf file.tar.gz files  -C解压的目标path
+

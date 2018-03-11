@@ -19,8 +19,20 @@
 
     点击某一台虚拟机--》右键snapshot快照、take snapshot--》revert to snapshot回到某一快照时刻
 
+    机器克隆网卡问题：点击某一台虚拟机--》manager--》clone--》create a full clone
+    复制的网卡使用eth1，比较麻烦，改回eth0
+    vi /etc/sysconfig/network-scripts/ifcfg-eth0
+        删除uuid和hwaddr修改ip地址
+    vi /etc/udev/rules.d/70-persistent-net.rules
+        删除eth0行，将eth1行的eth1改为eth0
+    reboot
+
+
     uname -a    查看操作系统信息
     uname -r
+
+    shutdown -h now 关机
+    shutdown -h now 重启
 
 
 局域网网络配置
@@ -43,6 +55,7 @@
             GATEWAY=192.168.33.1
 
 
+        ifconfig -a显示所有网卡
         service network restart
     nat虚拟网络
         虚拟机的虚拟网卡和vmnet8虚拟网卡共同连接虚拟路由器，ip和虚拟路由器网段一致
@@ -56,4 +69,20 @@
         vi vi /etc/sysconfig/network
 
 
-进程管理
+远程登录
+    ssh user@ip
+    用户密码验证
+    密钥验证（rsa公钥私钥）
+        免密登录
+        ssh-keygen
+        ssh-copy-id 139.199.113.145
+
+
+
+
+
+
+
+
+
+

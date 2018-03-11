@@ -1,0 +1,10 @@
+
+cd ~
+mkdir apps
+tar zxvf jdk-7u65-linux-i586.tar.gz -C /root/apps/
+bin/java -version
+echo $PATH环境变量
+vi /etc/profile
+    export JAVA_HOME=/root/apps/jdk1.7.0_65
+    export PATH=$PATH:$JAVA_HOME/bin
+source /etc/profile

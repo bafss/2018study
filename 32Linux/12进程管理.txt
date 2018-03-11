@@ -1,2 +1,0 @@
-netstat -nltp
-    dameon 服务进程

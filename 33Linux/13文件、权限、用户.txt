@@ -4,10 +4,18 @@
         ll /    ls -a -l
         cd /
         cat file
+        more file   空格/b/q
+        less file   空格/b/向上/向下//keyword
+        tail -10 file   -f 跟踪inode号改名后也是跟踪原来的inode号    -F按照文件名
+        head -10 file
         file filename 查看文件信息
+        du -sh -a
+        df -h查看分区
         mkdir -p aaa/bbb
         touch file
         echo "aaa" > file       >>
+        cp
+        scp file user@ip:/path
         vi i/a I/A o/O gg/G 2yy 5dd  2p :%s/replace/new /find n/N :wq!命令模式、编辑模式、底行模式
         rm -rf  强制递归删除文件夹
         mv aaa ddd
@@ -23,6 +31,10 @@
         vi /etc/sudoers
         zhouchenxin     ALL=(ALL)       ALL
         sudo useradd user
+
+    中文乱码：
+        session options--》appearance--》character set：utf-8
+        terminal--》emulation：Linux
 
 
 
