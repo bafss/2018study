@@ -1,0 +1,19 @@
+
+    cd ~
+    mkdir apps
+    tar zxvf jdk-7u65-linux-i586.tar.gz -C /root/apps/
+    bin/java -version
+    echo $PATH环境变量
+    vi /etc/profile
+        export JAVA_HOME=/root/apps/jdk1.7.0_65
+        export PATH=$PATH:$JAVA_HOME/bin
+    source /etc/profile
+
+
+
+Tomcat
+    tar zxvf apache-tomcat-7.0.68.tar.gz -C /root/apps/
+    cd /root/apps/apache-tomcat-7.0.68/bin/
+    ./startup.sh
+    netstat -nltp
+    http://139.199.113.145:8080/

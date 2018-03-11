@@ -1,9 +1,38 @@
-mount挂载外部存储设备到文件系统中
-umount /mnt/cdrom
-     mkdir /mnt/cdrom
-     mount -t -iso9660 -o ro /dev/cdrom /mnt/cdrom
-        -t  设备类型
-        -o  读的类型 ro只读
+
+yum包库 、依赖
+    yum -y install
+    yum remove httpd删除httpd
+    yum list|grep
+    yum clean all
+    yum deplist httpd列出httpd包所有依赖的包
+    rpm -e 软件包 --nodeps     删除依赖
+    rpm -qa|grep mysql查看安装的rpm包
+
+
+
+    yum本地源制作
+        cd /etc/yum.repos.d/        yum的配置文件
+        rename .bak .gg *   把所有.bak结尾换成.gg结尾
+
+        mount挂载外部存储设备到文件系统中
+        umount /mnt/cdrom
+             mkdir /mnt/cdrom
+             mount -t -iso9660 -o ro /dev/cdrom /mnt/cdrom
+                -t  设备类型
+                -o  读的类型 ro只读
+
+        vi llztest.repo
+            [llz]
+            baseurl=file:///mnt/cdrom
+            enabled=1
+            gpgcheck=0
+
+        yum clean all
+        yum repolist   列出可用的yum仓库
+
+        加入依赖包到私有yum的repository
+            进入到repo目录，执行命令 createrepo .
+
 
 
 

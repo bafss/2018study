@@ -1,0 +1,11 @@
+
+几张表配置哪些数据包可以进来 哪些可以出去
+主要是filter 包过滤
+    INPUT链条
+    OUTPUT链条
+    FORWARD转发链条
+    service iptables status/start
+    chkconfig iptables --list
+    chkconfig iptables on/off
+    iptables -I INPUT -p tcp --dport 8080 -j ACCEPT
+
