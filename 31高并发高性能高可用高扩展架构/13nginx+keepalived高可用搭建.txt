@@ -1,0 +1,119 @@
+
+nginx
+    安装
+        tar zxvf nginx-1.8.1.tar.gz -C /usr/local/src/
+        cd /usr/local/src/nginx-1.8.1
+        yum -y install gcc pcre-devel openssl openssl-devel
+        ./configure --prefix=/usr/local/nginx
+        make && make install
+        service httpd stop
+        /usr/local/nginx/sbin/nginx
+        netstat -nltp |grep nginx
+        http://139.199.113.145/
+
+    反向代理
+
+        server {
+            listen       80;
+            server_name  localhost;
+
+            location / {
+                root   html;
+                proxy_pass http://139.199.113.145:8080;
+            }
+        }
+        ../sbin/nginx -s reload
+    动静分离
+        location ~.*\.(jsp|do|action)${
+            proxy_pass http://139.199.113.145:8080;
+        }
+        #   ~大小写敏感
+
+        location ~.*\.(html|js|css|gif|jpg|jpeg|png)${
+            expires 3d;
+        }
+    负载均衡
+        http{
+            upstream tomcats{
+                server shizhan02:8080 weight=1;
+                server shizhan02:8080 weight=2;
+                server shizhan02:8080 weight=1;
+            }
+
+            location ~ .*\.(jsp|do|action){
+                proxy_pass http://tomcats;
+            }
+        }
+
+keepalived高可靠   抢ip
+    tar zxvf keepalived-1.2.19.tar.gz -C /usr/local/src
+    cd /usr/local/src/keepalived-1.2.19/
+    ./configure --prefix=/usr/local/keepalived
+    make && make install
+    将keepalived添加到系统服务中
+    cp /usr/local/keepalived/sbin/keepalived  /usr/sbin/    #拷贝执行文件
+    cp /usr/local/keepalived/etc/rc.d/init.d/keepalived /etc/init.d/keepalived  #加入开机启动项
+    cp /usr/local/keepalived/etc/sysconfig/keepalived  /etc/sysconfig/
+    mkdir -p /etc/keepalived
+    cp /usr/local/keepalived/etc/keepalived/keepalived.conf /etc/keepalived/
+    chmod +x /etc/init.d/keepalived
+
+    添加keepalived到开机启动
+    chkconfig --add keepalived
+    chkconfig keepalived on
+
+    配置keepalived虚拟ip
+    vi /etc/keepalived/keepalived.conf
+    主节点
+    vrrp_instance VI_1 {
+        state MASTER
+        interface eth0
+        virtual_router_id 51
+        priority 100
+        advert_int 1    #组播信息发送间隔
+        authentication {
+            auth_type PASS
+            auth_pass 1111
+        }
+        virtual_ipaddress {#指定虚拟ip，两个节点设置必须一样，和nginx[172.21.0.12 172.21.0.11]同一个网段
+            172.21.0.10/24   #24指子网掩码8个1
+        }
+    }
+
+    ip addr add 172.21.0.10 dev eth0
+    ip addr
+    ping 172.21.0.10
+
+
+
+    备节点
+    vrrp_instance VI_1 {
+        state BACKUP
+        interface eth0
+        virtual_router_id 51
+        priority 99
+        advert_int 1
+        authentication {
+            auth_type PASS
+            auth_pass 1111
+        }
+        virtual_ipaddress {
+            172.21.0.10/24
+        }
+    }
+
+    分别启动两台机器上的keepalived
+    service keepalived start
+    杀掉master上的keepalived进程，在slave机器上的eth0网卡上多了一个ip地址 ip addr
+
+
+
+
+
+
+
+
+
+
+
+
