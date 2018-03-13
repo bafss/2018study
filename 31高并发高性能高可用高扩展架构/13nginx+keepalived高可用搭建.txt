@@ -106,6 +106,54 @@ keepalived高可靠   抢ip
     service keepalived start
     杀掉master上的keepalived进程，在slave机器上的eth0网卡上多了一个ip地址 ip addr
 
+    配置keepalived心跳检查
+    keepalived和nginx不耦合，他俩不是一家人，但keepalived提供一个机制：让用户自定义一个shell脚本去检测用户自己的程序，返回状态给keepalived就可以了
+    vrrp_script chk_health{
+        script "[[ `ps -ef|grep nginx|grep -v grep|wc -l` -ge 2 ]] && exit 0 || exit 1"
+        interval 1
+        weight -2   #检测到nginx宕机，权重-2
+    }
+
+    track_script{
+        chk_health
+    }
+
+    notify_master "/usr/local/keepalived/sbin/notify.sh master"
+    notify_backup "/usr/local/keepalived/sbin/notify.sh backup"
+    notify_fault "/usr/local/keepalived/sbin/notify.sh fault"
+
+    添加切换通知脚本
+    vi /usr/local/keepalived/sbin/notify.sh
+    #!/bin/bash
+
+    case "$1" in
+        master)
+            /usr/local/nginx/sbin/nginx
+            exit 0
+        ;;
+        backup)
+            /usr/local/nginx/sbin/nginx -s stop
+            /usr/local/nginx/sbin/nginx
+            exit 0
+        ;;
+        fault)
+            /usr/local/nginx/sbin/nginx -s stop
+            exit 0
+        ;;
+        *)
+            echo 'Usage:notify.sh {master|backup|fault}'
+            exit 1
+        ;;
+    esac
+
+
+
+
+
+
+
+
+
 
 
 
