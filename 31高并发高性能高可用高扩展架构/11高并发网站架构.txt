@@ -16,17 +16,6 @@
 
 服务优化
 
-    分布式：dubbo、mycat
-    数据库服务
-    搜索:xunsearch
-    应用服务
-    微服务：1.解耦2.扩展  利于开发和服务升降级    熔断器
-    消息队列：rabbitmq   解耦、异步
-
-
-
-
-优化
 用户
     cdn服务器：内容分发网络静态资源，动态资源到网站上请求
 
@@ -36,16 +25,19 @@ Tomcat用户连接消耗资源  web服务应用程序
     action
     RPC远程过程调用
 
-    dubbo
+    dubbo分布式中间件
+    微服务：1.解耦2.扩展  利于开发和服务升降级    熔断器
 service订单服务、用户注册SOA devops
 
-    消息
+    消息队列：rabbitmq   解耦、异步
         分布式锁
         rabbitmq、kafka
 
     数据缓存：redis、memcache、MongoDB
+    搜索:xunsearch
 
     mycat中间件 一致性哈希算法
+
 MySQL存储
 
 读写分离
