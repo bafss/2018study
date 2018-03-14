@@ -33,9 +33,42 @@ yum包库 、依赖
         加入依赖包到私有yum的repository
             进入到repo目录，执行命令 createrepo .
 
+    yum网络版仓库
+        ll /dev/cdrom   软连到硬件光盘
+        mount -t iso9660 -o ro /dev/cdrom /mnt/cdrom
+        ll /mnt/cdrom
+        开机就挂
+        vi /etc/fstab
+        /dev/cdrom /mnt/cdrom iso9660 defaults 0 0#read only
+
+        cd html
+        ln -s /mnt/cdrom ./centos
+        http://host/centos
+
+        修改其他机器yum配置
+        cd /etc/yum.repos.d
+        cp CentOS-Media.repo.bak CentOS-mini4.repo
+        vi CentOS-mini4.repo
+
+        baseurl=http://mini4/centos
+        yum clean all
+        yum repolist
 
 
 
+
+
+
+
+
+
+
+scp
+    scp是ssh工具箱里的
+    yum list |grep ssh
+    yum -y install openssh-clients.x86_64
+    yum erase openssh-clients.x86_64删除
+    客户端和服务端都要安装
 wget
 filezilla
 lrzsz
